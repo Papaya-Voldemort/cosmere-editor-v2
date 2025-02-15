@@ -19,7 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "Journey before destination.",
         "Life before death, strength before weakness.",
         "Sometimes the prize is not worth the cost.",
-        "Trust is the most valuable currency."
+        "Trust is the most valuable currency.",
+        "Strength does not make one capable of rule; it makes one capable of service.",
+        "The purpose of a storyteller is not to tell you how to think, but to give you questions to think upon.",
+        "If you cannot defeat an enemy, well... a knife in the back is always a good option.",
+        "There are no men like me. There's only me.",
+        "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.",
+        // Add more quotes as needed
     ];
 
     const orders = [
@@ -33,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let stormlight = 0;
     let voidlight = 0;
     let lastHourWordCount = [];
+    let storyProgress = [];
 
     const updateStats = () => {
         const text = editor.value;
@@ -56,12 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (Math.random() < spren.length / 100) {
             sprenCount++;
-            if (sprenCount > 100) {
-                // Chance for voidbond
-                if (Math.random() < 0.01) {
-                    showNotification("You have become a Fused!");
-                    // Handle becoming a Fused
-                }
+            sprenCountElement.textContent = sprenCount;
+            if (sprenCount > 100 && Math.random() < 0.01) {
+                showNotification("You have become a Fused!");
+                // Handle becoming a Fused
             }
         }
 
@@ -80,6 +85,21 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             notificationElement.classList.add("hidden");
         }, 3000);
+    };
+
+    const playAnimation = (animationType, order) => {
+        const animation = animationType === "oath" ? oathAnimation : nightbloodAnimation;
+        const glyph = document.createElement("img");
+        glyph.src = `assets/animations/${order.toLowerCase()}-glyph.png`;
+        const text = document.createElement("p");
+        text.textContent = `${order} - ${bonds[order]} Ideal`;
+        animation.appendChild(glyph);
+        animation.appendChild(text);
+        animation.classList.remove("hidden");
+        setTimeout(() => {
+            animation.classList.add("hidden");
+            animation.innerHTML = ""; // Clear the animation content
+        }, 5000);
     };
 
     const exportData = () => {
