@@ -11,9 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const notificationTextElement = document.getElementById("notificationText");
     const analyticsPanel = document.getElementById("analyticsPanel");
     const settingsPanel = document.getElementById("settingsPanel");
+    const developerMenu = document.getElementById("developerMenu");
     const oathAnimation = document.getElementById("oathAnimation");
     const nightbloodAnimation = document.getElementById("nightbloodAnimation");
-    const developerMenu = document.getElementById("developerMenu");
+    const sprenVisuals = document.getElementById("sprenVisuals");
+    const achievementsPanel = document.getElementById("achievementsPanel");
+    const writingPromptsPanel = document.getElementById("writingPromptsPanel");
+    const progressTrackingPanel = document.getElementById("progressTrackingPanel");
+    const tutorialPanel = document.getElementById("tutorialPanel");
 
     const quotes = [
         "The most important step a writer can take is the next one.",
@@ -42,6 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let lastHourWordCount = [];
     let storyProgress = [];
     let nightbloodUnlocked = false;
+    let achievements = [];
+    let dailyGoal = 1000; // Daily writing goal in words
+    let dailyProgress = 0;
 
     const updateStats = () => {
         const text = editor.value;
@@ -63,20 +71,42 @@ document.addEventListener("DOMContentLoaded", () => {
             lastHourWordCount.shift();
         }
 
-        if (Math.random() < spren.length / 100) {
+        // Anti-cheat mechanism
+        if (words.length > 5000) {
+            sprenCount = Math.max(sprenCount - 10, 0);
+            showNotification("Cheating detected! Spren count reduced.");
+        }
+
+        // Spren collection based on average word count
+        const averageWords = lastHourWordCount.reduce((a, b) => a + b, 0) / lastHourWordCount.length;
+        if (Math.random() < averageWords / 1000) {
             sprenCount++;
             sprenCountElement.textContent = sprenCount;
+            updateSprenVisuals();
+            showNotification("Spren collected!");
+
             if (sprenCount > 100 && Math.random() < 0.01) {
                 showNotification("You have become a Fused!");
                 // Handle becoming a Fused
             }
         }
 
+        // Bonding with orders
         if (sprenCount >= 100 && Math.random() < 0.005) {
             const newOrder = orders[Math.floor(Math.random() * orders.length)];
             if (!bonds[newOrder]) {
                 bonds[newOrder] = 1;
                 showNotification(`You have bonded with the ${newOrder}!`);
+            }
+        }
+
+        // Daily goal progress
+        dailyProgress = words.length;
+        if (dailyProgress >= dailyGoal) {
+            if (!achievements.includes("Daily Goal Achieved")) {
+                achievements.push("Daily Goal Achieved");
+                showNotification("Daily goal achieved!");
+                updateAchievements();
             }
         }
     };
@@ -111,7 +141,10 @@ document.addEventListener("DOMContentLoaded", () => {
             xp,
             stormlight,
             voidlight,
-            lastHourWordCount
+            lastHourWordCount,
+            storyProgress,
+            achievements,
+            dailyProgress
         };
         const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
@@ -134,10 +167,90 @@ document.addEventListener("DOMContentLoaded", () => {
             stormlight = data.stormlight;
             voidlight = data.voidlight;
             lastHourWordCount = data.lastHourWordCount;
+            storyProgress = data.storyProgress;
+            achievements = data.achievements;
+            dailyProgress = data.dailyProgress;
             updateStats();
+            updateSprenVisuals();
+            updateAchievements();
             showNotification("Data imported from .shard");
         };
         reader.readAsText(file);
+    };
+
+    const updateSprenVisuals = () => {
+        const sprenImages = [
+            "assets/spren/spren1.png",
+            "assets/spren/spren2.png",
+            "assets/spren/spren3.png",
+            // Add more spren images as needed
+        ];
+
+        sprenVisuals.innerHTML = "";
+        for (let i = 0; i < sprenCount; i++) {
+            const img = document.createElement("img");
+            img.src = sprenImages[i % sprenImages.length];
+            sprenVisuals.appendChild(img);
+        }
+    };
+
+    const updateAchievements = () => {
+        const achievementElements = {
+            "First 100 Words": document.getElementById("achievement1"),
+            "Daily Goal Achieved": document.getElementById("achievement2"),
+            "First Spren Collected": document.getElementById("achievement3"),
+            "Bond with an Order": document.getElementById("achievement4"),
+            "Unlock Nightblood Mode": document.getElementById("achievement5"),
+            "Write for 7 Days Straight": document.getElementById("achievement6"),
+            "Complete 10 Writing Prompts": document.getElementById("achievement7"),
+            "Reach 10,000 Words": document.getElementById("achievement8"),
+            "Reach 50,000 Words": document.getElementById("achievement9"),
+            "Reach 100,000 Words": document.getElementById("achievement10")
+        };
+
+        achievements.forEach(achievement => {
+            if (achievementElements[achievement]) {
+                achievementElements[achievement].classList.add("achieved");
+            }
+        });
+    };
+
+    const loadTutorial = () => {
+        const tutorialSteps = [
+            "Welcome to the Cosmere Editor!",
+            "Start by writing your first few words.",
+            "Collect spren by maintaining a steady writing pace.",
+            "Unlock bonds with orders as you collect more spren.",
+            "Achieve daily writing goals to earn achievements.",
+            "Explore different themes and progress through the storyline.",
+            "Use the toolbar buttons to access various features such as downloading, importing, and viewing analytics.",
+            "Customize your experience in the settings panel.",
+            "Good luck and happy writing!"
+        ];
+
+        let currentStep = 0;
+        const showNextStep = () => {
+            if (currentStep < tutorialSteps.length) {
+                showNotification(tutorialSteps[currentStep]);
+                currentStep++;
+                setTimeout(showNextStep, 5000);
+            }
+        };
+
+        showNextStep();
+    };
+
+    const generateWritingPrompt = () => {
+        const prompts = [
+            "Write about a character who discovers a hidden talent.",
+            "Describe a scene where two characters meet for the first time.",
+            "Write about a place that holds a special meaning for your protagonist.",
+            "Create a dialogue between two characters with opposing views.",
+            // Add more prompts as needed
+        ];
+
+        const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        document.getElementById("writingPromptText").textContent = randomPrompt;
     };
 
     document.getElementById("themeToggle").addEventListener("click", () => {
@@ -214,10 +327,10 @@ document.addEventListener("DOMContentLoaded", () => {
         developerMenu.classList.toggle("hidden");
     });
 
-    // Developer Menu Functions
     document.getElementById("devAddSprenBtn").addEventListener("click", () => {
         sprenCount += 10;
         updateStats();
+        updateSprenVisuals();
         showNotification("Added 10 spren (Developer Tool).");
     });
 
@@ -235,12 +348,48 @@ document.addEventListener("DOMContentLoaded", () => {
         lastHourWordCount = [];
         storyProgress = [];
         nightbloodUnlocked = false;
+        achievements = [];
+        dailyProgress = 0;
         updateStats();
+        updateSprenVisuals();
+        updateAchievements();
         showNotification("Progress reset (Developer Tool).");
+    });
+
+    document.getElementById("saveSettingsBtn").addEventListener("click", () => {
+        dailyGoal = parseInt(document.getElementById("dailyGoalInput").value, 10);
+        showNotification("Settings saved.");
+    });
+
+    document.getElementById("themeSelector").addEventListener("change", (event) => {
+        document.body.className = event.target.value;
+        showNotification("Theme changed.");
+    });
+
+    document.getElementById("closeAchievementsBtn").addEventListener("click", () => {
+        achievementsPanel.classList.add("hidden");
+    });
+
+    document.getElementById("closeWritingPromptsBtn").addEventListener("click", () => {
+        writingPromptsPanel.classList.add("hidden");
+    });
+
+    document.getElementById("closeProgressTrackingBtn").addEventListener("click", () => {
+        progressTrackingPanel.classList.add("hidden");
+    });
+
+    document.getElementById("closeTutorialBtn").addEventListener("click", () => {
+        tutorialPanel.classList.add("hidden");
+    });
+
+    document.getElementById("newPromptBtn").addEventListener("click", () => {
+        generateWritingPrompt();
     });
 
     editor.addEventListener("input", updateStats);
 
-    // Initial stats update
+    // Initial setup
     updateStats();
+    loadTutorial();
+    generateWritingPrompt();
 });

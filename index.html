@@ -1,127 +1,148 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="default-light" data-order="none" data-ideal="0">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cosmere Editor v2</title>
-  <link id="dynamic-theme" rel="stylesheet" href="assets/themes/default-light.css">
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/@grammarly/editor-sdk@2.5.1?clientId=YOUR_CLIENT_ID"></script>
-  <script src="script.js" defer></script>
-  <script src="assets/animations/oath-animation.js" defer></script>
-  <script src="assets/animations/nightblood-animation.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmere Editor V2</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="editor-container">
-    <!-- Toolbar -->
-    <div class="toolbar">
-      <span class="title">COSMERE EDITOR v2</span>
-      <div class="controls">
-        <button id="themeToggle" title="Toggle Lightweaving">
-          <span class="icon">🌓</span>
-        </button>
-        <button id="downloadBtn" title="Forge a Shard">
-          <span class="icon">⚔️</span>
-        </button>
-        <button id="importBtn" title="Import a Shard">
-          <span class="icon">📂</span>
-        </button>
-        <button id="inspireBtn" title="Summon the Stormfather">
-          <span class="icon">🌪️</span>
-        </button>
-        <button id="notifyBtn" title="Receive a Vision">
-          <span class="icon">🔮</span>
-        </button>
-        <button id="analyticsBtn" title="View Analytics">
-          <span class="icon">📊</span>
-        </button>
-        <button id="settingsBtn" title="Open Settings">
-          <span class="icon">⚙️</span>
-        </button>
-        <button id="fullscreenBtn" title="Toggle Fullscreen">
-          <span class="icon">🖥️</span>
-        </button>
-        <button id="nightbloodModeBtn" title="Activate Nightblood Mode">
-          <span class="icon">🗡️</span>
-        </button>
-      </div>
+    <div class="editor-container">
+        <div class="toolbar">
+            <div class="title">Cosmere Editor V2</div>
+            <div class="controls">
+                <button id="themeToggle" title="Toggle Theme"><span class="icon">&#9788;</span></button>
+                <button id="downloadBtn" title="Download"><span class="icon">&#128190;</span></button>
+                <button id="importBtn" title="Import"><span class="icon">&#128194;</span></button>
+                <button id="inspireBtn" title="Inspire Me"><span class="icon">&#128161;</span></button>
+                <button id="notifyBtn" title="Notifications"><span class="icon">&#128276;</span></button>
+                <button id="analyticsBtn" title="Analytics"><span class="icon">&#128200;</span></button>
+                <button id="settingsBtn" title="Settings"><span class="icon">&#9881;</span></button>
+                <button id="fullscreenBtn" title="Fullscreen"><span class="icon">&#x26F6;</span></button>
+                <button id="nightbloodModeBtn" title="Nightblood Mode"><span class="icon">&#128737;</span></button>
+                <button id="developerMenuBtn" title="Developer Menu"><span class="icon">&#128295;</span></button>
+            </div>
+        </div>
+        <textarea id="editor" placeholder="Start writing your novel here..."></textarea>
+        <div class="stats">
+            <span>Words: <span id="wordCount">0</span></span>
+            <span>Characters: <span id="charCount">0</span></span>
+            <span>Spren: <span id="sprenCount">0</span></span>
+            <span>Stormlight: <span id="stormlightLevel">0%</span></span>
+            <span>Voidlight: <span id="voidlight">0%</span></span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="inspiration-bar" id="inspirationText">Get inspired!</div>
+        <div class="notification hidden" id="notification">
+            <p id="notificationText"></p>
+        </div>
+        <div class="analytics-panel hidden" id="analyticsPanel">
+            <h3>Analytics</h3>
+            <button id="closeAnalyticsBtn">Close</button>
+            <div id="analyticsContent">
+                <h4>Daily Word Count</h4>
+                <canvas id="dailyWordCountChart"></canvas>
+                <h4>Overall Progress</h4>
+                <canvas id="overallProgressChart"></canvas>
+                <h4>Spren Collected</h4>
+                <div id="sprenAnalytics">Total Spren Collected: <span id="totalSprenCollected">0</span></div>
+            </div>
+        </div>
+        <div class="settings-panel hidden" id="settingsPanel">
+            <h3>Settings</h3>
+            <button id="closeSettingsBtn">Close</button>
+            <div id="settingsContent">
+                <label for="dailyGoalInput">Daily Goal (words):</label>
+                <input type="number" id="dailyGoalInput" min="1" value="1000">
+                <button id="saveSettingsBtn">Save Settings</button>
+                <label for="themeSelector">Select Theme:</label>
+                <select id="themeSelector">
+                    <option value="default">Default</option>
+                    <option value="windrunner">Windrunner</option>
+                    <option value="skybreaker">Skybreaker</option>
+                    <option value="dustbringer">Dustbringer</option>
+                    <option value="edgedancer">Edgedancer</option>
+                    <option value="truthwatcher">Truthwatcher</option>
+                    <option value="lightweaver">Lightweaver</option>
+                    <option value="elsecaller">Elsecaller</option>
+                    <option value="willshaper">Willshaper</option>
+                    <option value="stoneward">Stoneward</option>
+                    <option value="bondsmith">Bondsmith</option>
+                </select>
+            </div>
+        </div>
+        <div class="developer-menu hidden" id="developerMenu">
+            <h3>Developer Menu</h3>
+            <button id="devAddSprenBtn">Add Spren</button>
+            <button id="devUnlockNightbloodBtn">Unlock Nightblood</button>
+            <button id="devResetProgressBtn">Reset Progress</button>
+        </div>
+        <div class="oath-animation hidden" id="oathAnimation"></div>
+        <div class="nightblood-animation hidden" id="nightbloodAnimation"></div>
+        <div class="spren-visuals" id="sprenVisuals">
+            <h3>Spren Collected</h3>
+            <div id="sprenContainer">
+                <img src="assets/spren/spren1.png" alt="Spren 1">
+                <img src="assets/spren/spren2.png" alt="Spren 2">
+                <img src="assets/spren/spren3.png" alt="Spren 3">
+                <!-- More spren images as needed -->
+            </div>
+        </div>
+        <div class="achievements-panel hidden" id="achievementsPanel">
+            <h3>Achievements</h3>
+            <button id="closeAchievementsBtn">Close</button>
+            <div id="achievementsContent">
+                <ul>
+                    <li id="achievement1">First 100 Words</li>
+                    <li id="achievement2">Daily Goal Achieved</li>
+                    <li id="achievement3">First Spren Collected</li>
+                    <li id="achievement4">Bond with an Order</li>
+                    <li id="achievement5">Unlock Nightblood Mode</li>
+                    <li id="achievement6">Write for 7 Days Straight</li>
+                    <li id="achievement7">Complete 10 Writing Prompts</li>
+                    <li id="achievement8">Reach 10,000 Words</li>
+                    <li id="achievement9">Reach 50,000 Words</li>
+                    <li id="achievement10">Reach 100,000 Words</li>
+                    <!-- More achievements as needed -->
+                </ul>
+            </div>
+        </div>
+        <div class="writing-prompts-panel hidden" id="writingPromptsPanel">
+            <h3>Writing Prompts</h3>
+            <button id="closeWritingPromptsBtn">Close</button>
+            <div id="writingPromptsContent">
+                <p id="writingPromptText">Write about a character who discovers a hidden talent.</p>
+                <button id="newPromptBtn">New Prompt</button>
+            </div>
+        </div>
+        <div class="progress-tracking-panel hidden" id="progressTrackingPanel">
+            <h3>Progress Tracking</h3>
+            <button id="closeProgressTrackingBtn">Close</button>
+            <div id="progressTrackingContent">
+                <h4>Word Count Progress</h4>
+                <canvas id="wordCountProgressChart"></canvas>
+                <h4>Spren Collected Over Time</h4>
+                <canvas id="sprenProgressChart"></canvas>
+            </div>
+        </div>
+        <div class="tutorial-panel hidden" id="tutorialPanel">
+            <h3>Tutorial</h3>
+            <button id="closeTutorialBtn">Close</button>
+            <div id="tutorialContent">
+                <p>Welcome to the Cosmere Editor! This tutorial will guide you through the features of the editor.</p>
+                <p>1. Start by writing your first few words in the editor.</p>
+                <p>2. Collect spren by maintaining a steady writing pace.</p>
+                <p>3. Unlock bonds with orders as you collect more spren.</p>
+                <p>4. Achieve daily writing goals to earn achievements.</p>
+                <p>5. Explore different themes and progress through the storyline.</p>
+                <p>6. Use the toolbar buttons to access various features such as downloading, importing, and viewing analytics.</p>
+                <p>7. Customize your experience in the settings panel.</p>
+                <p>Good luck and happy writing!</p>
+            </div>
+        </div>
     </div>
-
-    <!-- Main Editor -->
-    <grammarly-editor-plugin>
-      <textarea id="editor" class="expanded-editor" placeholder="Life before death, strength before weakness, journey before destination..."></textarea>
-    </grammarly-editor-plugin>
-
-    <!-- Stats Bar -->
-    <div class="stats">
-      <span>Words: <span id="wordCount">0</span></span>
-      <span>Chars: <span id="charCount">0</span></span>
-      <span>Spren: <span id="sprenCount">0</span></span>
-      <span>Stormlight: <span id="stormlightLevel">0%</span></span>
-      <span>Voidlight: <span id="voidlight">0%</span></span>
-    </div>
-
-    <!-- Inspiration Bar -->
-    <div class="inspiration-bar">
-      <span id="inspirationText">The most important step a writer can take is the next one.</span>
-    </div>
-
-    <!-- Progress Tracker -->
-    <div class="progress-bar">
-      <div id="progress" class="progress"></div>
-    </div>
-
-    <!-- Notification System -->
-    <div id="notification" class="notification hidden">
-      <span id="notificationText"></span>
-    </div>
-
-    <!-- Analytics Panel -->
-    <div id="analyticsPanel" class="analytics-panel hidden">
-      <h3>Writing Analytics</h3>
-      <p>Spren Collected: <span id="sprenCountAnalytics">0</span></p>
-      <p>Voidlight: <span id="voidlightAnalytics">0%</span></p>
-      <div class="order-progress">
-        <!-- Dynamically populated -->
-      </div>
-      <button id="closeAnalyticsBtn">Close</button>
-    </div>
-
-    <!-- Settings Panel -->
-    <div id="settingsPanel" class="settings-panel hidden">
-      <h3>Settings</h3>
-      <div class="setting">
-        <label for="autoSaveToggle">Auto-Save:</label>
-        <input type="checkbox" id="autoSaveToggle" checked>
-      </div>
-      <div class="setting">
-        <label for="notificationToggle">Notifications:</label>
-        <input type="checkbox" id="notificationToggle" checked>
-      </div>
-      <div class="setting">
-        <label for="stormlightModeToggle">Stormlight Mode:</label>
-        <input type="checkbox" id="stormlightModeToggle">
-      </div>
-      <div class="setting">
-        <label for="orderSelect">Choose Order:</label>
-        <select id="orderSelect">
-          <option value="none">Default</option>
-          <!-- Dynamically populated -->
-        </select>
-      </div>
-      <button id="closeSettingsBtn">Close</button>
-    </div>
-
-    <!-- Oath Animation -->
-    <div id="oathAnimation" class="oath-animation hidden">
-      <img id="oathGlyph" src="" alt="Order Glyph">
-      <p id="oathText"></p>
-    </div>
-
-    <!-- Nightblood Animation -->
-    <div id="nightbloodAnimation" class="nightblood-animation hidden">
-      <span>Destroy Evil</span>
-    </div>
-  </div>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,313 +1,397 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
+    color: #333;
 }
 
 .editor-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 1400px;
-    padding: 20px;
-    box-sizing: border-box;
+    max-width: 900px;
+    margin: 50px auto;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .toolbar {
+    background: #333;
+    color: #fff;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    background-color: #282c34;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
 }
 
 .toolbar .title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 1.5em;
 }
 
-.toolbar .controls {
-    display: flex;
-    gap: 10px;
-}
-
-.toolbar button {
+.toolbar .controls button {
     background: none;
     border: none;
-    color: white;
+    color: #fff;
+    font-size: 1.2em;
+    margin: 0 5px;
     cursor: pointer;
-    font-size: 18px;
 }
 
-.toolbar button .icon {
-    font-size: 24px;
+.toolbar .controls button:hover {
+    color: #ff9f00;
 }
 
-#editor {
+textarea#editor {
     width: 100%;
-    max-width: 1400px;
-    height: 70vh;
+    height: 400px;
+    border: none;
     padding: 20px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.8);
-    resize: none;
-    margin-top: 20px;
     box-sizing: border-box;
+    font-size: 1.2em;
+    resize: none;
+    outline: none;
+    line-height: 1.5;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .stats {
     display: flex;
     justify-content: space-around;
-    width: 100%;
-    margin-top: 20px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .stats span {
-    font-size: 14px;
-}
-
-.inspiration-bar {
-    width: 100%;
-    margin-top: 20px;
-    font-size: 16px;
-    font-style: italic;
-    text-align: center;
+    font-size: 1.1em;
 }
 
 .progress-bar {
     width: 100%;
-    height: 20px;
-    background-color: #ccc;
-    border-radius: 10px;
-    margin-top: 20px;
-    overflow: hidden;
+    background: #ddd;
+    height: 10px;
 }
 
 .progress-bar .progress {
     height: 100%;
-    background-color: #4caf50;
+    background: #ff9f00;
     width: 0;
+}
+
+.inspiration-bar {
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    background: #f1f1f1;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .notification {
     position: fixed;
     bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: white;
-    padding: 10px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 15px;
     border-radius: 5px;
-    display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
 .notification.hidden {
     display: none;
 }
 
-.analytics-panel, .settings-panel {
+.panel {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    border: 2px solid #ccc;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 20px;
-    display: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    z-index: 1000;
+    overflow-y: auto;
+    max-height: 80%;
 }
 
-.analytics-panel.hidden, .settings-panel.hidden {
+.panel h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.panel button {
+    background: #ff9f00;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.panel button:hover {
+    background: #ff7f00;
+}
+
+.panel.hidden {
     display: none;
 }
 
-.analytics-panel h3, .settings-panel h3 {
+.spren-visuals {
+    padding: 20px;
+    text-align: center;
+}
+
+.spren-visuals h3 {
     margin-top: 0;
 }
 
-.analytics-panel .order-progress {
-    margin-top: 10px;
+#sprenContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.settings-panel .setting {
-    margin-top: 10px;
+#sprenContainer img {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
 }
 
-.oath-animation {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    display: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.achievements-panel ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.oath-animation.hidden {
-    display: none;
+.achievements-panel ul li {
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
 }
 
-.oath-animation img {
-    width: 100px;
-    height: 100px;
+.achievements-panel ul li::before {
+    content: "\2713";
+    color: #4caf50;
+    margin-right: 10px;
 }
 
-.oath-animation p {
-    font-size: 18px;
-    text-align: center;
-    margin-top: 10px;
+.writing-prompts-panel #writingPromptText {
+    font-size: 1.2em;
+    margin-bottom: 20px;
 }
 
-.nightblood-animation {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 0, 0, 0.8);
-    border: 2px solid #333;
-    border-radius: 10px;
-    padding: 20px;
-    display: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    color: white;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.nightblood-animation.hidden {
-    display: none;
-}
-
-/* Settings Panel */
-.settings-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 300px;
-    height: 100%;
-    background: var(--settings-bg);
-    color: var(--settings-text);
-    padding: 2rem;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-}
-
-.settings-panel.open {
-    transform: translateX(0);
-}
-
-.settings-panel h2 {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.settings-panel .setting {
-    margin-bottom: 1rem;
-}
-
-.settings-panel .setting label {
+.writing-prompts-panel #newPromptBtn {
     display: block;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    margin: 0 auto;
 }
 
-.settings-panel .setting input,
-.settings-panel .setting select {
+.progress-tracking-panel h4 {
+    margin-top: 0;
+}
+
+#dailyWordCountChart,
+#overallProgressChart,
+#wordCountProgressChart,
+#sprenProgressChart {
     width: 100%;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid var(--hover);
-    border-radius: 6px;
-    background: var(--background);
-    color: var(--text);
+    height: 300px;
 }
 
-/* Encyclopedia Panel */
-.encyclopedia-panel {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: 100%;
-    background: var(--encyclopedia-bg);
-    color: var(--encyclopedia-text);
-    padding: 2rem;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 1000;
+.tutorial-panel p {
+    font-size: 1.1em;
+    line-height: 1.6;
 }
 
-.encyclopedia-panel.open {
-    transform: translateX(0);
+.hidden {
+    display: none;
 }
 
-.encyclopedia-panel h2 {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+@media (max-width: 600px) {
+    .editor-container {
+        margin: 20px;
+    }
+
+    .toolbar .controls button {
+        font-size: 1em;
+    }
+
+    textarea#editor {
+        height: 200px;
+    }
+
+    .panel {
+        width: 100%;
+        max-width: none;
+        padding: 10px;
+    }
+
+    .panel button {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2em;
+    }
 }
 
-.encyclopedia-panel .entry {
-    margin-bottom: 1rem;
+/* Additional Styles for Enhanced UX */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #ff9f00;
 }
 
-.encyclopedia-panel .entry h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+button:active,
+input:active,
+select:active,
+textarea:active {
+    outline: none;
+    box-shadow: none;
 }
 
-.encyclopedia-panel .entry p {
-    font-size: 1rem;
-    line-height: 1.4;
+button {
+    transition: background-color 0.3s ease;
 }
 
-/* Nightblood Mode */
-.nightblood-mode {
-    background: var(--nightblood-bg);
-    color: var(--nightblood-text);
+input,
+select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: calc(100% - 22px);
 }
 
-.nightblood-mode .toolbar,
-.nightblood-mode .settings-panel,
-.nightblood-mode .encyclopedia-panel {
-    background: var(--nightblood-bg);
-    color: var(--nightblood-text);
+input:focus,
+select:focus {
+    border-color: #ff9f00;
 }
 
-.nightblood-mode button {
-    background: var(--nightblood-bg);
-    color: var(--nightblood-text);
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
-.nightblood-mode #editor {
-    background: var(--nightblood-bg);
-    color: var(--nightblood-text);
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-.nightblood-mode .notification {
-    background: var(--nightblood-bg);
-    color: var(--nightblood-text);
+h4 {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    margin-bottom: 15px;
+}
+
+.panel h3 {
+    text-align: center;
+}
+
+textarea::placeholder {
+    color: #bbb;
+}
+
+textarea {
+    background: #fafafa;
+}
+
+.panel h4 {
+    font-size: 1.3em;
+    margin-top: 20px;
+}
+
+.panel div {
+    margin-bottom: 20px;
+}
+
+#analyticsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#settingsContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#achievementsContent ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#achievementsContent ul li {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+#achievementsContent ul li::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #4caf50;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.notification p {
+    margin: 0;
+}
+
+.inspiration-bar {
+    font-style: italic;
+    color: #666;
+}
+
+.panel #closeAnalyticsBtn,
+.panel #closeSettingsBtn,
+.panel #closeAchievementsBtn,
+.panel #closeWritingPromptsBtn,
+.panel #closeProgressTrackingBtn,
+.panel #closeTutorialBtn {
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.panel #closeAnalyticsBtn:hover,
+.panel #closeSettingsBtn:hover,
+.panel #closeAchievementsBtn:hover,
+.panel #closeWritingPromptsBtn:hover,
+.panel #closeProgressTrackingBtn:hover,
+.panel #closeTutorialBtn:hover {
+    background: #000;
+}
+
+.panel h3,
+.panel h4 {
+    color: #333;
 }
