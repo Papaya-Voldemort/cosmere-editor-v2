@@ -14,7 +14,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     padding: 20px;
 }
 
@@ -294,7 +294,7 @@ body {
 
 .nightblood-mode button {
     background: var(--nightblood-bg);
-    color: var (--nightblood-text);
+    color: var(--nightblood-text);
 }
 
 .nightblood-mode #editor {
