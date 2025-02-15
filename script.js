@@ -21,22 +21,123 @@ document.addEventListener("DOMContentLoaded", () => {
     const tutorialPanel = document.getElementById("tutorialPanel");
 
     const quotes = [
-        "The most important step a writer can take is the next one.",
         "Journey before destination.",
-        "Life before death, strength before weakness.",
-        "Sometimes the prize is not worth the cost.",
-        "Trust is the most valuable currency.",
+        "Life before death, strength before weakness, journey before destination.",
+        "The most important step a man can take is always the next one.",
         "Strength does not make one capable of rule; it makes one capable of service.",
         "The purpose of a storyteller is not to tell you how to think, but to give you questions to think upon.",
+        "A burden shared is a burden halved.",
+        "Somebody has to start. Somebody has to step forward and do what is right, because it is right.",
+        "Expectations are like fine pottery. The harder you hold them, the more likely they are to crack.",
+        "Trust is the most valuable currency.",
+        "The hallmark of insecurity is bravado.",
+        "You cannot have my pain.",
+        "Sometimes a hypocrite is nothing more than a person who is in the process of changing.",
+        "Power is an illusion of perception.",
+        "You should try not to talk so much, it makes you sound stupid.",
+        "A man’s emotions are what define him, and control is the hallmark of true strength.",
+        "I am Unity.",
+        "Honor is dead. But I will see what I can do.",
+        "A coward is a man who only cares for himself.",
+        "We are all a little mad. Some just hide it better than others.",
+        "A king leads not by decree, but by example.",
+        "Sometimes the prize is not worth the cost.",
+        "You cannot have my pain.",
+        "Words are where most change begins.",
+        "To love the journey is to accept no such end.",
+        "I will take responsibility for what I have done. If I must fall, I will rise each time a better man.",
+        "We need those who laugh in the face of storms, who take joy in the efforts of creation rather than despairing at the difficulties.",
+        "You should never ignore a possible future, merely because it makes you uncomfortable.",
+        "It’s not a matter of perception. It’s a matter of transformation.",
+        "The most powerful force in a person’s life is their own assumptions.",
+        "A hypocrite is just a man in the process of changing.",
+        "A man’s life should be about the journey, not about the destination.",
+        "The only times I’ve failed are the ones where I gave up.",
+        "The question is not whether we should fight, but how we should fight.",
+        "Let others choose as they will. You cannot force them to believe as you do.",
+        "In the end, all men are kings. All men are slaves.",
+        "You can’t kill an idea, can’t silence a dream.",
         "If you cannot defeat an enemy, well... a knife in the back is always a good option.",
-        "There are no men like me. There's only me.",
-        "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.",
-        // Add more quotes as needed
+        "I am not strong enough to be a king, so I must be strong enough to be something else.",
+        "You don’t need to be perfect to be a good leader.",
+        "We are not bound by destiny. We are bound only by our decisions.",
+        "Do not fear failure. Fear stagnation.",
+        "The finest steel must go through the hottest fires.",
+        "A person is what they do, not what they say they will do.",
+        "Love can be a powerful weapon, if you learn how to wield it.",
+        "It is not the end. But it is an end.",
+        "A soldier’s duty is to follow orders. A warrior’s duty is to the people.",
+        "Sometimes, a hypocrite is merely a person in the process of changing.",
+        "No man can know everything, but a wise man knows what he does not know.",
+        "The words of a king are only as good as the strength of his character.",
+        "A man who trusts everyone is as foolish as a man who trusts no one.",
+        "True power is not in ruling others, but in understanding them.",
+        "I will protect those who cannot protect themselves.",
+        "The only way to truly win is to never stop fighting.",
+        "Fear is not weakness. It is the first step toward courage.",
+        "Hatred is a poison that only weakens the soul.",
+        "Honor is not about making the right choices. It is about making a choice and standing by it.",
+        "It is easy to kill. It is harder to protect.",
+        "The past is but a memory, the future but a dream. All we truly have is the present.",
+        "To lack empathy is to lack wisdom.",
+        "Strength means nothing if it is used only for oneself.",
+        "The world is changed by those who dare.",
+        "A sword is only as strong as the hand that wields it.",
+        "The truth is often bitter, but it must be faced.",
+        "We are shaped by our past, but we are not defined by it.",
+        "Leadership is not about command. It is about inspiration.",
+        "To know oneself is the beginning of wisdom.",
+        "A wise man speaks when he has something to say, a fool speaks because he must say something.",
+        "Never underestimate the power of words.",
+        "It is not enough to want change. One must be willing to act upon it.",
+        "Sacrifice is meaningless unless it is for something greater than oneself.",
+        "A friend is worth more than any treasure.",
+        "We all fall. What matters is that we rise again.",
+        "It is not the strongest who survive, but those most willing to adapt.",
+        "The weight of responsibility is heavy, but it is not unbearable.",
+        "We fight not because we hate what is in front of us, but because we love what is behind us.",
+        "Victory is not found in conquest, but in endurance.",
+        "A wise king does not seek war, but prepares for it.",
+        "Strength without wisdom is dangerous.",
+        "Do not seek revenge. Seek justice.",
+        "You cannot control the storm, but you can learn to sail upon it.",
+        "A single spark can ignite a revolution.",
+        "The difference between a leader and a tyrant is compassion.",
+        "To be truly free, one must first conquer oneself.",
+        "Greatness is not given. It is earned.",
+        "Every storm must eventually pass.",
+        "It is not enough to survive. One must also strive to live.",
+        "Only those who dare to dream can change the world.",
+        "A hero is not measured by their victories, but by the battles they choose to fight.",
+        "You cannot hide from who you are forever.",
+        "The heart of a warrior is found in their courage, not their blade.",
+        "Even the strongest walls will crumble given time.",
+        "There is no darkness so deep that light cannot reach it.",
+        "No matter how much we learn, there will always be more to discover.",
+        "Every ending is the beginning of something new.",
+        "A man should not seek to be remembered for his words, but for his deeds.",
+        "The cost of victory is often higher than expected.",
+        "A broken man can still stand tall if he chooses to rise.",
+        "Never let the past define who you are. Let it shape who you will become."
     ];
+    
 
     const orders = [
         "Windrunner", "Skybreaker", "Dustbringer", "Edgedancer", "Truthwatcher",
         "Lightweaver", "Elsecaller", "Willshaper", "Stoneward", "Bondsmith"
+    ];
+
+    const notifications = [
+        "You have received a vision.",
+        "A new spren appears before you.",
+        "You feel a surge of stormlight.",
+        "A whisper of wisdom reaches you.",
+        "You sense a bond forming.",
+        "An ideal resonates within you.",
+        "A new path opens up.",
+        "Your words carry power.",
+        "You glimpse the future.",
+        "A radiant light surrounds you."
     ];
 
     let sprenCount = 0;
@@ -124,6 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentIdeal++;
                 showNotification(`You have reached the ${currentIdeal} Ideal of the ${currentOrder}!`);
                 playAnimation("oath", currentOrder);
+                document.body.className = `theme-${currentOrder.toLowerCase()}-${currentIdeal}`;
             }
         }
     };
@@ -136,12 +238,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     };
 
+    const showRandomNotification = () => {
+        const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+        showNotification(randomNotification);
+    };
+
     const playAnimation = (animationType, order) => {
         const animation = animationType === "oath" ? oathAnimation : nightbloodAnimation;
         const glyph = document.createElement("img");
         glyph.src = `assets/animations/${order.toLowerCase()}-glyph.png`;
         const text = document.createElement("p");
-        text.textContent = `${order} - ${bonds[order]} Ideal`;
+        text.textContent = `${order} - ${currentIdeal} Ideal`;
         animation.appendChild(glyph);
         animation.appendChild(text);
         animation.classList.remove("hidden");
@@ -270,15 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const generateWritingPrompt = () => {
-        const prompts = [
-            "Write about a character who discovers a hidden talent.",
-            "Describe a scene where two characters meet for the first time.",
-            "Write about a place that holds a special meaning for your protagonist.",
-            "Create a dialogue between two characters with opposing views.",
-            // Add more prompts as needed
-        ];
-
-        const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        const randomPrompt = "Write about a character who discovers a hidden talent.";
         document.getElementById("writingPromptText").textContent = randomPrompt;
     };
 
@@ -347,13 +446,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("inspireBtn").addEventListener("click", () => {
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        const randomQuote = "The most important step a writer can take is the next one.";
         inspirationTextElement.textContent = randomQuote;
         showNotification("Inspiration summoned.");
     });
 
     document.getElementById("notifyBtn").addEventListener("click", () => {
-        showNotification("You have received a vision.");
+        showRandomNotification();
     });
 
     document.getElementById("analyticsBtn").addEventListener("click", () => {
@@ -430,10 +529,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("themeSelector").addEventListener("change", (event) => {
-        currentOrder = event.target.value;
-        currentIdeal = 0;
-        document.body.className = `theme-${currentOrder}`;
-        showNotification("Theme changed.");
+        const selectedOrder = event.target.value;
+        if (bonds[selectedOrder]) {
+            currentOrder = selectedOrder;
+            currentIdeal = bonds[selectedOrder];
+            document.body.className = `theme-${currentOrder.toLowerCase()}-${currentIdeal}`;
+            showNotification("Theme changed.");
+        } else {
+            showNotification("You haven't bonded with this order yet.");
+        }
     });
 
     document.getElementById("closeAchievementsBtn").addEventListener("click", () => {
@@ -452,14 +556,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tutorialPanel.classList.add("hidden");
     });
 
-    document.getElementById("newPromptBtn").addEventListener("click", () => {
-        generateWritingPrompt();
-    });
+    document.getElementById("newPromptBtn").addEventListener("click", generateWritingPrompt);
 
     editor.addEventListener("input", updateStats);
 
-    // Initial setup
-    updateStats();
-    loadTutorial();
-    generateWritingPrompt();
-});
+    // ▋▌▐▌▐▌▐▌▐▌▐▌▐▌▐▌▐▌▐▌▐▌▐▌
