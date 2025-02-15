@@ -53,6 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentOrder = "default";
     let currentIdeal = 0;
 
+    // Load storyline from story.js
+    const storyline = window.storyline || [];
+
     const updateStats = () => {
         const text = editor.value;
         const words = text.match(/\b(\w+)\b/g) || [];
