@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let achievements = [];
     let dailyGoal = 1000; // Daily writing goal in words
     let dailyProgress = 0;
+    let currentOrder = "default";
+    let currentIdeal = 0;
 
     const updateStats = () => {
         const text = editor.value;
@@ -92,11 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Bonding with orders
-        if (sprenCount >= 100 && Math.random() < 0.005) {
+        if (currentOrder === "default" && sprenCount >= 100 && Math.random() < 0.005) {
             const newOrder = orders[Math.floor(Math.random() * orders.length)];
             if (!bonds[newOrder]) {
                 bonds[newOrder] = 1;
                 showNotification(`You have bonded with the ${newOrder}!`);
+                unlockTheme(newOrder);
             }
         }
 
@@ -107,6 +110,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 achievements.push("Daily Goal Achieved");
                 showNotification("Daily goal achieved!");
                 updateAchievements();
+            }
+        }
+
+        // XP and Ideals
+        if (currentOrder !== "default" && Math.random() < 0.01) {
+            xp[currentOrder] = (xp[currentOrder] || 0) + 10;
+            if (xp[currentOrder] >= 100) {
+                xp[currentOrder] = 0;
+                currentIdeal++;
+                showNotification(`You have reached the ${currentIdeal} Ideal of the ${currentOrder}!`);
+                playAnimation("oath", currentOrder);
             }
         }
     };
@@ -144,7 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
             lastHourWordCount,
             storyProgress,
             achievements,
-            dailyProgress
+            dailyProgress,
+            currentOrder,
+            currentIdeal
         };
         const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
@@ -170,6 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
             storyProgress = data.storyProgress;
             achievements = data.achievements;
             dailyProgress = data.dailyProgress;
+            currentOrder = data.currentOrder;
+            currentIdeal = data.currentIdeal;
             updateStats();
             updateSprenVisuals();
             updateAchievements();
@@ -215,6 +233,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    const unlockTheme = (order) => {
+        const themeSelector = document.getElementById("themeSelector");
+        const option = document.createElement("option");
+        option.value = order.toLowerCase();
+        option.textContent = order;
+        themeSelector.appendChild(option);
+    };
+
     const loadTutorial = () => {
         const tutorialSteps = [
             "Welcome to the Cosmere Editor!",
@@ -251,6 +277,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
         document.getElementById("writingPromptText").textContent = randomPrompt;
+    };
+
+    const renderGraph = (canvasId, labels, data, label) => {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    };
+
+    const updateGraphs = () => {
+        const labels = lastHourWordCount.map((_, index) => `Minute ${index + 1}`);
+        renderGraph('dailyWordCountChart', labels, lastHourWordCount, 'Words per Minute');
+        renderGraph('overallProgressChart', labels, Array(labels.length).fill(0).map((_, i) => i * dailyGoal), 'Overall Progress');
+        renderGraph('wordCountProgressChart', labels, lastHourWordCount, 'Word Count Progress');
+        renderGraph('sprenProgressChart', labels, Array(labels.length).fill(sprenCount), 'Spren Collected Over Time');
     };
 
     document.getElementById("themeToggle").addEventListener("click", () => {
@@ -293,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("analyticsBtn").addEventListener("click", () => {
         analyticsPanel.classList.toggle("hidden");
+        updateGraphs();
     });
 
     document.getElementById("settingsBtn").addEventListener("click", () => {
@@ -350,6 +413,8 @@ document.addEventListener("DOMContentLoaded", () => {
         nightbloodUnlocked = false;
         achievements = [];
         dailyProgress = 0;
+        currentOrder = "default";
+        currentIdeal = 0;
         updateStats();
         updateSprenVisuals();
         updateAchievements();
@@ -362,7 +427,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("themeSelector").addEventListener("change", (event) => {
-        document.body.className = event.target.value;
+        currentOrder = event.target.value;
+        currentIdeal = 0;
+        document.body.className = `theme-${currentOrder}`;
         showNotification("Theme changed.");
     });
 
