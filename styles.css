@@ -1,117 +1,182 @@
-);
-  }
-  
-  /* Settings Panel */
-  .settings-panel {
-position: fixed;
-top: 0;
-right: 0;
-width: 300px;
-height: 100%;
-background: var(--settings-bg);
-color: var(--settings-text);
-padding: 2rem;
-box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
-transform: translateX(100%);
-transition: transform 0.3s ease;
-z-index: 1000;
-  }
-  
-  .settings-panel.open {
-transform: translateX(0);
-  }
-  
-  .settings-panel h2 {
-font-family: 'Roboto Mono', monospace;
-font-size: 1.5rem;
-margin-bottom: 1rem;
-  }
-  
-  .settings-panel .setting {
-margin-bottom: 1rem;
-  }
-  
-  .settings-panel .setting label {
-display: block;
-font-size: 1rem;
-margin-bottom: 0.5rem;
-  }
-  
-  .settings-panel .setting input,
-  .settings-panel .setting select {
-width: 100%;
-padding: 0.5rem;
-font-size: 1rem;
-border: 1px solid var(--hover);
-border-radius: 6px;
-background: var(--background);
-color: var(--text);
-  }
-  
-  /* Encyclopedia Panel */
-  .encyclopedia-panel {
-position: fixed;
-top: 0;
-left: 0;
-width: 300px;
-height: 100%;
-background: var(--encyclopedia-bg);
-color: var(--encyclopedia-text);
-padding: 2rem;
-box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
-transform: translateX(-100%);
-transition: transform 0.3s ease;
-z-index: 1000;
-  }
-  
-  .encyclopedia-panel.open {
-transform: translateX(0);
-  }
-  
-  .encyclopedia-panel h2 {
-font-family: 'Roboto Mono', monospace;
-font-size: 1.5rem;
-margin-bottom: 1rem;
-  }
-  
-  .encyclopedia-panel .entry {
-margin-bottom: 1rem;
-  }
-  
-  .encyclopedia-panel .entry h3 {
-font-size: 1.2rem;
-margin-bottom: 0.5rem;
-  }
-  
-  .encyclopedia-panel .entry p {
-font-size: 1rem;
-line-height: 1.4;
-  }
-  
-  /* Nightblood Mode */
-  .nightblood-mode {
-background: var(--nightblood-bg);
-color: var(--nightblood-text);
-  }
-  
-  .nightblood-mode .toolbar,
-  .nightblood-mode .settings-panel,
-  .nightblood-mode .encyclopedia-panel {
-background: var(--nightblood-bg);
-color: var(--nightblood-text);
-  }
-  
-  .nightblood-mode button {
-background: var(--nightblood-bg);
-color: var(--nightblood-text);
-  }
-  
-  .nightblood-mode .expanded-editor {
-background: var(--nightblood-bg);
-color: var(--nightblood-text);
-  }
-  
-  .nightblood-mode .notification {
-background: var(--nightblood-bg);
-color: var(--nightblood-text);
-  }
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #282c34;
+    color: white;
+    padding: 10px;
+}
+
+.toolbar .title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.toolbar .controls {
+    display: flex;
+    gap: 10px;
+}
+
+.toolbar button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.toolbar button .icon {
+    font-size: 24px;
+}
+
+#editor {
+    width: 80%;
+    height: 60vh;
+    padding: 20px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    resize: none;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.stats span {
+    font-size: 14px;
+}
+
+.inspiration-bar {
+    margin-top: 10px;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.progress-bar {
+    width: 80%;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress-bar .progress {
+    height: 100%;
+    background-color: #4caf50;
+    width: 0;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+.notification.hidden {
+    display: none;
+}
+
+.analytics-panel, .settings-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-panel.hidden, .settings-panel.hidden {
+    display: none;
+}
+
+.analytics-panel h3, .settings-panel h3 {
+    margin-top: 0;
+}
+
+.analytics-panel .order-progress {
+    margin-top: 10px;
+}
+
+.settings-panel .setting {
+    margin-top: 10px;
+}
+
+.oath-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.oath-animation.hidden {
+    display: none;
+}
+
+.oath-animation img {
+    width: 100px;
+    height: 100px;
+}
+
+.oath-animation p {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.nightblood-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0.8);
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nightblood-animation.hidden {
+    display: none;
+}
