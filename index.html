@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default-light" data-order="none" data-ideal="0">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmere Editor v2</title>
+  <link id="dynamic-theme" rel="stylesheet" href="assets/themes/default-light.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@grammarly/editor-sdk@2.5.1?clientId=YOUR_CLIENT_ID"></script>
+  <script src="script.js" defer></script>
+  <script src="assets/animations/oath-animation.js" defer></script>
+  <script src="assets/animations/nightblood-animation.js" defer></script>
+</head>
+<body>
+  <div class="editor-container">
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <span class="title">COSMERE EDITOR v2</span>
+      <div class="controls">
+        <button id="themeToggle" title="Toggle Lightweaving">
+          <span class="icon">🌓</span>
+        </button>
+        <button id="downloadBtn" title="Forge a Shard">
+          <span class="icon">⚔️</span>
+        </button>
+        <button id="importBtn" title="Import a Shard">
+          <span class="icon">📂</span>
+        </button>
+        <button id="inspireBtn" title="Summon the Stormfather">
+          <span class="icon">🌪️</span>
+        </button>
+        <button id="notifyBtn" title="Receive a Vision">
+          <span class="icon">🔮</span>
+        </button>
+        <button id="analyticsBtn" title="View Analytics">
+          <span class="icon">📊</span>
+        </button>
+        <button id="settingsBtn" title="Open Settings">
+          <span class="icon">⚙️</span>
+        </button>
+        <button id="fullscreenBtn" title="Toggle Fullscreen">
+          <span class="icon">🖥️</span>
+        </button>
+        <button id="nightbloodModeBtn" title="Activate Nightblood Mode">
+          <span class="icon">🗡️</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Editor -->
+    <grammarly-editor-plugin>
+      <textarea id="editor" class="expanded-editor" placeholder="Life before death, strength before weakness, journey before destination..."></textarea>
+    </grammarly-editor-plugin>
+
+    <!-- Stats Bar -->
+    <div class="stats">
+      <span>Words: <span id="wordCount">0</span></span>
+      <span>Chars: <span id="charCount">0</span></span>
+      <span>Spren: <span id="sprenCount">0</span></span>
+      <span>Stormlight: <span id="stormlightLevel">0%</span></span>
+      <span>Voidlight: <span id="voidlight">0%</span></span>
+    </div>
+
+    <!-- Inspiration Bar -->
+    <div class="inspiration-bar">
+      <span id="inspirationText">The most important step a writer can take is the next one.</span>
+    </div>
+
+    <!-- Progress Tracker -->
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notification" class="notification hidden">
+      <span id="notificationText"></span>
+    </div>
+
+    <!-- Analytics Panel -->
+    <div id="analyticsPanel" class="analytics-panel hidden">
+      <h3>Writing Analytics</h3>
+      <p>Spren Collected: <span id="sprenCountAnalytics">0</span></p>
+      <p>Voidlight: <span id="voidlightAnalytics">0%</span></p>
+      <div class="order-progress">
+        <!-- Dynamically populated -->
+      </div>
+      <button id="closeAnalyticsBtn">Close</button>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settingsPanel" class="settings-panel hidden">
+      <h3>Settings</h3>
+      <div class="setting">
+        <label for="autoSaveToggle">Auto-Save:</label>
+        <input type="checkbox" id="autoSaveToggle" checked>
+      </div>
+      <div class="setting">
+        <label for="notificationToggle">Notifications:</label>
+        <input type="checkbox" id="notificationToggle" checked>
+      </div>
+      <div class="setting">
+        <label for="stormlightModeToggle">Stormlight Mode:</label>
+        <input type="checkbox" id="stormlightModeToggle">
+      </div>
+      <div class="setting">
+        <label for="orderSelect">Choose Order:</label>
+        <select id="orderSelect">
+          <option value="none">Default</option>
+          <!-- Dynamically populated -->
+        </select>
+      </div>
+      <button id="closeSettingsBtn">Close</button>
+    </div>
+
+    <!-- Oath Animation -->
+    <div id="oathAnimation" class="oath-animation hidden">
+      <img id="oathGlyph" src="" alt="Order Glyph">
+      <p id="oathText"></p>
+    </div>
+
+    <!-- Nightblood Animation -->
+    <div id="nightbloodAnimation" class="nightblood-animation hidden">
+      <span>Destroy Evil</span>
+    </div>
+  </div>
+</body>
+</html>
