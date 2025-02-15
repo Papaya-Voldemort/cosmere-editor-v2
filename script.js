@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const settingsPanel = document.getElementById("settingsPanel");
     const oathAnimation = document.getElementById("oathAnimation");
     const nightbloodAnimation = document.getElementById("nightbloodAnimation");
+    const developerMenu = document.getElementById("developerMenu");
 
     const quotes = [
         "The most important step a writer can take is the next one.",
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let voidlight = 0;
     let lastHourWordCount = [];
     let storyProgress = [];
+    let nightbloodUnlocked = false;
 
     const updateStats = () => {
         const text = editor.value;
@@ -193,7 +195,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("nightbloodModeBtn").addEventListener("click", () => {
-        nightbloodAnimation.classList.toggle("hidden");
+        if (nightbloodUnlocked) {
+            nightbloodAnimation.classList.toggle("hidden");
+        } else {
+            showNotification("You haven't unlocked Nightblood mode yet.");
+        }
     });
 
     document.getElementById("closeAnalyticsBtn").addEventListener("click", () => {
@@ -202,6 +208,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("closeSettingsBtn").addEventListener("click", () => {
         settingsPanel.classList.add("hidden");
+    });
+
+    document.getElementById("developerMenuBtn").addEventListener("click", () => {
+        developerMenu.classList.toggle("hidden");
+    });
+
+    // Developer Menu Functions
+    document.getElementById("devAddSprenBtn").addEventListener("click", () => {
+        sprenCount += 10;
+        updateStats();
+        showNotification("Added 10 spren (Developer Tool).");
+    });
+
+    document.getElementById("devUnlockNightbloodBtn").addEventListener("click", () => {
+        nightbloodUnlocked = true;
+        showNotification("Nightblood mode unlocked (Developer Tool).");
+    });
+
+    document.getElementById("devResetProgressBtn").addEventListener("click", () => {
+        sprenCount = 0;
+        bonds = {};
+        xp = {};
+        stormlight = 0;
+        voidlight = 0;
+        lastHourWordCount = [];
+        storyProgress = [];
+        nightbloodUnlocked = false;
+        updateStats();
+        showNotification("Progress reset (Developer Tool).");
     });
 
     editor.addEventListener("input", updateStats);
